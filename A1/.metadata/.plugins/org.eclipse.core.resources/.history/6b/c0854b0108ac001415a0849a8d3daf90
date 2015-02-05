@@ -1,0 +1,29 @@
+/** An instance maintains info about the PhD of a person. */
+
+public class PhD {
+	private String name; // name of person with PhD, length > 0
+	private int year; //year PhD was awarded
+	private int month; /** month PhD was awarded, in 1..12, 
+		with 1 meaning January, etc.*/
+	private char gender; //gender of person, 'M' for male, 'F' for female
+	private PhD first_ad; //person's first PhD advisor, null if unknown 
+	private PhD second_ad; /**person's second PhD advisor, 
+		null if unknown or if person had one advisor*/
+	private int num_phd; // number of person's PhD advisors
+	
+	/** Constructor 1: an instance with hour h and minute m.
+     *  Precondition: n has at least 1 character, * m is in 1..12, 
+     *  and g is 'M' for male or 'F' for female.*/
+	public PhD(String n, char g, int y, int m){
+		assert length(n) == 1;
+		assert 1 <= m && m <= 12;
+		assert g == 'M' || g == 'F';
+		
+		
+	}
+
+	private int length(String n) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}

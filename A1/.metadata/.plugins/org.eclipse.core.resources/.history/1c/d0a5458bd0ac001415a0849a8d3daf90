@@ -1,0 +1,18 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+public class PhDTester {
+	
+	@Test
+    public void testConstructor1(){
+		PhD p = new PhD("Philipp Hanna", 'M', 1995, 2);
+		// assertEquals(expected val, computed val);
+		assertEquals("Philipp Hanna", p.getName());
+		assertEquals(false, p.isFemale());
+		assertEquals(1995, p.getYear());
+		assertEquals(2, p.getMonth());
+	}
+
+}

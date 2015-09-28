@@ -1,0 +1,107 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+public class A2Tester {
+
+	@Test
+	//test isPalindrome
+    public void testIsPalindrome(){
+		// assertEquals(expected value, computed value);
+		String s0 = ""; 
+		assertEquals(true, A2.isPalindrome(s0));
+		String s1 = "ab";
+		assertEquals(false, A2.isPalindrome(s1));
+		String s2 = "abba";
+		assertEquals(true, A2.isPalindrome(s2));
+		String s3 = "Madam, I'm Adam";
+		assertEquals(false, A2.isPalindrome(s3));
+		String s4 = "MadamImAdam";
+		assertEquals(false, A2.isPalindrome(s4));
+		String s5 = "madamimadam";
+		assertEquals(true, A2.isPalindrome(s5));
+		String s6 = " ";
+		assertEquals(true, A2.isPalindrome(s6));
+		String s7 = "Xx";
+		assertEquals(false, A2.isPalindrome(s7));
+		String s8 = "X X";
+		assertEquals(true, A2.isPalindrome(s8));
+		String s9 = "X x";
+		assertEquals(false, A2.isPalindrome(s9));
+	}
+	
+	public void testNumOccurrences(){
+		String s0 = "aaa";
+		String s1 = "aaa";
+		assertEquals(1, A2.numOccurrences(s0, s1));
+		String s2 = "aaa";
+		String s3 = "a";
+		assertEquals(3, A2.numOccurrences(s2, s3));
+		String s4 = "Luke Skywalker";
+		String s5 = "ke";
+		assertEquals(2, A2.numOccurrences(s4, s5));
+		String s6 = "abababab";
+		String s7 = "aba";
+		assertEquals(2, A2.numOccurrences(s6, s7));
+		String s8 = "a a a";
+		String s9 = " ";
+		assertEquals(2, A2.numOccurrences(s8, s9));
+		
+	}
+
+	
+	public void testAreAnagrams(){
+		//assertEquals (expected value, computed value)
+		String s0 = "are";
+		String s1 = "rae";
+		assertEquals(true, A2.areAnagrams(s0, s1));
+		String s2 = "tom marvolo riddle";
+		String s3 = "i am lordvoldemort";
+		assertEquals(true, A2.areAnagrams(s2, s3));
+		String s4 = "tommarvoloriddle";
+		assertEquals(false, A2.areAnagrams(s4, s3));
+		String s5 = "hello";
+		String s6 = "world";
+		assertEquals(false, A2.areAnagrams(s5, s6));
+	}
+	
+	public void testReplaceConsonants(){
+		//assertEquals(expected value, computed value);
+		String s0 = "Minecraft";
+		assertEquals("^i_e__a__", A2.replaceConsonants(s0));
+		String s1 = "Alan Turing";
+		assertEquals("A_a_ ^u_i__", A2.replaceConsonants(s1));
+		String s2 = "AAA";
+		assertEquals("AAA", A2.replaceConsonants(s2));
+		String s3 = "aaa";
+		assertEquals("aaa", A2.replaceConsonants(s3));
+		String s4 = "XXX";
+		assertEquals("^^^", A2.replaceConsonants(s4));
+		String s5 = "xxx";
+		assertEquals("___", A2.replaceConsonants(s5));
+		String s6 = "X X X";
+		assertEquals("^ ^ ^", A2.replaceConsonants(s6));
+		
+		
+	}
+
+	
+	public void testDecompress(){
+		//assertEquals(expected value, computed value);
+		String s0 = "3a";
+		assertEquals("aaa", A2.decompress(s0));
+		String s1 = "0a";
+		assertEquals("", A2.decompress(s1));
+		String s2 = "3b1c5b2x0a";
+		assertEquals("bbbcbbbbbxx", A2.decompress(s2));
+		String s3 = "";
+		assertEquals("", A2.decompress(s3));
+		String s4 = "1x";
+		assertEquals("x", A2.decompress(s4));
+		
+	}
+	
+	
+
+}

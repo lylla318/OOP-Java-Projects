@@ -1,0 +1,108 @@
+package student;
+import java.util.ArrayList;
+import java.util.Queue;
+import java.util.Random;
+import java.util.Set;
+
+import game.Board;
+import game.Game;
+import game.GameRunner;
+import game.UserData;
+import game.Vector;
+import game.Score;
+import game.PQueue;
+import game.Node;
+import game.Main;
+import game.Edge;
+import game.Colorable;
+import game.BoardElement;
+import game.Manager;
+import game.Parcel;
+import game.Truck;
+
+public class MyManager extends Manager {
+	
+	
+
+	public MyManager() {
+		// TODO Auto-generated constructor stub
+	}
+
+	boolean flag = true; //true if pre-processing not done
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		flag = true;
+
+		Set<Parcel> parcels = this.getParcels();
+		ArrayList<Truck> tr = this.getTrucks();
+		ArrayList<Truck> trucks = tr;
+		
+		//add empty ArrayList of parcels to user data of each truck
+		for (int i = 0; i < trucks.size(); i++){
+			ArrayList<Parcel> parcList = new ArrayList<Parcel> ();
+			trucks.get(i).setUserData(parcList);
+		}
+		
+		//add each parcel to ArrayList of a random truck
+		for(Parcel p : parcels){
+			Random random = new Random(); 
+			int r = random.nextInt(trucks.size());
+			((ArrayList<Parcel>) trucks.get(r).getUserData()).add(p); 
+		}
+
+		flag = false;
+	}
+
+	@Override
+	public void truckNotification(Truck t, Notification message) {
+		// TODO Auto-generated method stub
+
+		if (message != Notification.WAITING){
+			return;
+		}
+		
+		//pre-processing not done
+		if (flag == true){
+			return;
+		}
+		
+		//not holding but is on top of a parcel --> condition
+		
+		Set<Parcel> parcels = this.getParcels();
+
+		//if there is at least one un-delivered parcel in the game
+		if (this.getParcels().isEmpty() == false){
+			
+			//t has load
+			if (t.getLoad() != null){
+				if (t.getLocation() == t.getLoad().destination){
+					t.dropoffLoad();
+				}
+				else {
+					t.setTravelPath(Paths.dijkstra(t.getLocation(), 
+							t.getLoad().destination));
+				}
+			}
+			//t has no load
+			else {
+				//t is on top of parcel it needs, pick it up
+				if (t.getLocation() == ){
+					
+				}
+				//t needs to find next parcel to pick up
+				
+			}
+			
+		} 
+		//no un-delivered parcels - route truck home (to Depot)
+		else {
+			t.setTravelPath(Paths.dijkstra(t.getLocation(), 
+					this.getBoard().getTruckDepot()));
+		}
+	}
+	
+	
+}

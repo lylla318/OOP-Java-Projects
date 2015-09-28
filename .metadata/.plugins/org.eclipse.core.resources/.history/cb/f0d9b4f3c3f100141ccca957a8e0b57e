@@ -1,0 +1,24 @@
+package Student;
+
+import game.Manager;
+import game.Truck;
+
+public class MyManager extends Manager {
+
+	public MyManager() {
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void truckNotification(Truck t, Notification message) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

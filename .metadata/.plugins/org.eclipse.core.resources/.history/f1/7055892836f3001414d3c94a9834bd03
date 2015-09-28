@@ -1,0 +1,84 @@
+Set<Parcel> parcels = this.getParcels();
+		
+		if (flag == true){
+			return;
+		}
+		
+		//if there is an un-delivered parcel in the game
+		if (this.getParcels().isEmpty() == false){
+			
+			//if t is holding a parcel, route to parcel destination and drop off load
+			if (t.getLoad() != null){//change to waiting
+				t.setTravelPath(Paths.dijkstra(t.getLocation(), 
+						t.getLoad().destination));
+				if (t.getLocation() == t.getLoad().destination){
+					t.dropoffLoad();
+				}//separate condition
+			}
+			//t is not holding a parcel, more parcels to deliver
+			else {
+				for (Parcel p : parcels){
+					if (p.isHeld() == false){
+						t.setUserData(p);
+						t.setTravelPath(Paths.dijkstra(t.getLocation(), 
+								t.getLoad().destination));
+						break;
+					}
+				}
+			}
+		}
+		else {
+			//route truck back to T
+			t.setTravelPath(Paths.dijkstra(t.getLocation(), 
+					this.getBoard().getTruckDepot()));	
+		}
+	}
+}
+
+
+
+
+
+
+else {
+				for (Parcel p : parcels){
+					if (p.isHeld() == false){
+						//go there
+						t.setTravelPath(Paths.dijkstra(t.getLocation(), 
+								t.getLoad().destination));
+						break;
+					}
+				}
+			}
+			
+			
+			
+			
+			//no un-delivered parcels - route truck home (to Depot)
+		/**else {
+			t.setTravelPath(Paths.dijkstra(t.getLocation(), 
+					this.getBoard().getTruckDepot()));
+		}*/
+
+
+
+
+
+				
+				//t needs to find next parcel to pick up
+				if (user.getFirst() != null){
+					t.setTravelPath(Paths.dijkstra(t.getLocation(), 
+							user.getFirst().getLocation()));
+				}
+				//truck has delivered all of its parcels, route home
+				else {
+					t.setTravelPath(Paths.dijkstra(t.getLocation(), 
+							this.getBoard().getTruckDepot()));
+				}
+
+
+
+
+
+
+

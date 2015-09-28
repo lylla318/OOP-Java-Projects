@@ -1,0 +1,62 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+public class A2Tester {
+
+	@Test
+	//test isPalindrome
+    public void testIsPalindrome(){
+		// assertEquals(expected value, computed value);
+		String s0 = ""; 
+		assertEquals(true, A2.isPalindrome(s0));
+		String s1 = "ab";
+		assertEquals(false, A2.isPalindrome(s1));
+		String s2 = "abba";
+		assertEquals(true, A2.isPalindrome(s2));
+		String s3 = "Madam, I'm Adam";
+		assertEquals(false, A2.isPalindrome(s3));
+		String s4 = "MadamImAdam";
+		assertEquals(false, A2.isPalindrome(s4));
+		String s5 = "madamimadam";
+		assertEquals(true, A2.isPalindrome(s5));
+	}
+	
+	public void replaceConsonants(){
+		//assertEquals(expected value, computed value);
+		String s0 = "Minecraft";
+		assertEquals("^i_e__a__", A2.replaceConsonants(s0));
+		String s1 = "Alan Turing";
+		assertEquals("A_a_ ^u_i__", A2.replaceConsonants(s1));
+		String s2 = "AAA";
+		assertEquals("AAA", A2.replaceConsonants(s2));
+		String s3 = "aaa";
+		assertEquals("aaa", A2.replaceConsonants(s3));
+		String s4 = "XX X";
+		assertEquals("^^ ^", A2.replaceConsonants(s4));
+		String s5 = "xxx";
+		assertEquals("___", A2.replaceConsonants(s5));
+		
+		
+	}
+
+	
+	public void decompress(){
+		//assertEquals(expected value, computed value);
+		String s0 = "3a";
+		assertEquals("aaa", A2.decompress(s0));
+		String s1 = "0a";
+		assertEquals("", A2.decompress(s1));
+		String s2 = "3b1c5b2x0a";
+		assertEquals("bbbcbbbbbxx", A2.decompress(s2));
+		String s3 = "";
+		assertEquals("", A2.decompress(s3));
+		String s4 = "1x";
+		assertEquals("x", A2.decompress(s4));
+		
+	}
+	
+	
+
+}

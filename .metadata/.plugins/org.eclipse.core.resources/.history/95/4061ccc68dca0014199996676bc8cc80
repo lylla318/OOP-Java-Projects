@@ -1,0 +1,166 @@
+import java.util.Iterator;
+
+/** An instance is a 2D bounding box. */
+public class BoundingBox {
+	/** The corner of the bounding box with the smaller x,y coordinates. */
+	public Vector2D lower; // (minX, minY)
+
+	/** The corner of the bounding box with the larger x,y coordinates.	 */
+	public Vector2D upper; // (maxX, maxY)
+
+	/** Constructor: an instance is a copy of bounding box b.*/
+	public BoundingBox(BoundingBox b) {
+		lower= new Vector2D(b.lower);
+		upper= new Vector2D(b.upper);
+	}
+
+	/** Constructor: An instance with lower as smaller coordinates and
+	 * upper as larger coordinates. */
+	public BoundingBox(Vector2D lower, Vector2D upper) {
+		if (upper.x < lower.x)
+			throw new IllegalArgumentException("invalid bbox");
+		if (upper.y < lower.y)
+			throw new IllegalArgumentException("invalid bbox");
+
+		this.lower= lower;
+		this.upper= upper;
+	}
+
+	/** Return the width of this bounding box (along x-dimension).  */
+	public double getWidth() {
+		return upper.x - lower.x;
+	}
+
+	/** Return the height of this bounding box (along y-dimension). */
+	public double getHeight() {
+		return upper.y - lower.y;
+	}
+
+	/** Return the larger of the width and height of this bounding box.  */
+	public double getLength() {
+		// TODO: Implement me.
+		
+		if (this.getWidth()>this.getHeight()){
+			return this.getWidth();
+		} else if (this.getWidth()<this.getHeight()) {
+			return this.getHeight();
+		} else{
+			return getWidth();
+		}
+	}
+
+	/** Return the center of this bounding box.  */
+	public Vector2D getCenter() {
+		// TODO: Implement me.
+		
+		Vector2D center = new Vector2D((this.getWidth()*0.5),
+				(this.getHeight()*0.5));
+		
+		return center;
+	}
+
+	/** Return the result of displacing this bounding box by d.  */
+	public BoundingBox displaced(Vector2D d) {
+		// TODO: Implement me.
+		
+		double newLowX = this.lower.x + d.x;
+		double newLowY = this.lower.y + d.y;
+		double newUppX = this.upper.x + d.x;
+		double newUppY = this.upper.y + d.y;
+		Vector2D Low = new Vector2D(newLowX,newLowY);
+		Vector2D Upp = new Vector2D(newUppX,newUppY);
+		
+		BoundingBox disp = new BoundingBox(Low,Upp);
+		
+		return disp;
+	}
+
+	/** Return true iff this bounding box contains p.  */
+	public boolean contains(Vector2D p) {
+		boolean inX= lower.x <= p.x && p.x <= upper.x;
+		boolean inY= lower.y <= p.y && p.y <= upper.y;
+		return inX && inY;
+	}
+
+	/** Return the area of this bounding box.  */
+	public double getArea() {
+		// TODO: Implement me.
+		
+		double area = this.getWidth() * this.getHeight();
+		
+		return area;
+	}
+
+	/** Return true iff this bounding box overlaps with box.  */
+	public boolean overlaps(BoundingBox box) {
+		// TODO: Implement me.
+		
+		if ((this.lower.x < box.upper.x) && (this.upper.x > box.upper.x)){
+				if((this.upper.y == box.upper.y)&&(this.lower.y == box.lower.y)){
+					return true;
+				} else if ((this.lower.y < box.upper.y)&&(this.upper.y > box.upper.y)){
+					return true;
+				} else if ((this.upper.y > box.lower.y)&&(this.upper.y < box.upper.y)){
+					return true;
+				}
+		} else if ((this.lower.x == box.lower.x)&&(this.upper.x == box.upper.x)){
+			if ((this.upper.y > box.upper.y)&&(this.lower.y < box.upper.y)){
+				return true;
+			}
+		} else if ((box.lower.x < this.upper.x) && (box.upper.x > this.upper.x)){
+			if((box.upper.y == this.upper.y)&&(box.lower.y == this.lower.y)){
+				return true;
+			} else if ((box.lower.y < this.upper.y)&&(box.upper.y > this.upper.y)){
+				return true;
+			} else if ((box.upper.y > this.lower.y)&&(box.upper.y < this.upper.y)){
+				return true;
+			}
+		} //else if ((box.lower.x == this.lower.x))
+		
+		return false;
+		
+
+	}
+
+	/** Return the bounding box of blocks given by iter. */
+	public static BoundingBox findBBox(Iterator<Block> iter) {
+		// Do not modify the following "if" statement.
+		if (!iter.hasNext())
+			throw new IllegalArgumentException("empty iterator");
+
+		// TODO: Implement me.
+		
+		
+		double largestLowerX = 0.0;
+		double largestLowerY = 0.0;
+		double largestUpperX = 0.0;
+		double largestUpperY = 0.0;
+		
+		while (iter.hasNext()) {
+			Block x = iter.next();
+			if (x.getBBox().lower.x > largestLowerX){
+				largestLowerX = x.getBBox().lower.x;
+			}
+			if (x.getBBox().upper.x > largestUpperX){
+				largestUpperX = x.getBBox().upper.x;
+			}
+			if (x.getBBox().lower.y > largestLowerY){
+				largestLowerY = x.getBBox().lower.y;
+			}
+			if (x.getBBox().upper.y > largestUpperY){
+				largestUpperY = x.getBBox().upper.y;
+			}
+		}
+		
+		Vector2D Low = new Vector2D(largestLowerX,largestLowerY);
+		Vector2D Upp = new Vector2D(largestUpperX,largestUpperY);
+		BoundingBox iterBBox = new BoundingBox(Low, Upp);
+		
+		return iterBBox;
+	}
+
+	/** Return a representation of this bounding box. */
+	public String toString() {
+		return lower + " -- " + upper;
+	}
+}

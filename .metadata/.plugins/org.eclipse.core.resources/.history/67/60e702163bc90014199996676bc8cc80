@@ -1,0 +1,133 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+public class BoundingBoxTest {
+
+	@Test
+	public void testGetLength() {
+		double epsilon = 0.000000000001;
+		
+		//case with greater height
+		Vector2D one = new Vector2D(1,0);
+		Vector2D two = new Vector2D(2,4);
+		BoundingBox BBox0 = new BoundingBox(one,two);
+		assertEquals(BBox0.getHeight(), BBox0.getLength(), epsilon);
+		
+		//test with equal width and height
+		Vector2D three = new Vector2D(1,1);
+		Vector2D four = new Vector2D(1,1);
+		BoundingBox BBox1 = new BoundingBox(three,four);
+		assertEquals(BBox1.getWidth(), BBox1.getLength(), epsilon);
+		
+		//test with greater width
+		Vector2D five = new Vector2D(1,0);
+		Vector2D six = new Vector2D(6,2);
+		BoundingBox BBox2 = new BoundingBox(five,six);
+		assertEquals(BBox2.getWidth(), BBox2.getLength(), epsilon);
+	}
+	
+	@Test
+	public void testGetCenter() {
+		double epsilon = 0.000000000001;
+		
+
+		Vector2D one = new Vector2D(1,0);
+		Vector2D two = new Vector2D(2,4);
+		BoundingBox BBox0 = new BoundingBox(one,two);
+		Vector2D three = new Vector2D(0.5,2);
+		assertEquals(three.x, BBox0.getCenter().x, epsilon);
+		assertEquals(three.y, BBox0.getCenter().y, epsilon);
+		
+	}
+	
+	
+	@Test
+	public void testDisplaced() {
+		double epsilon = 0.000000000001;
+		
+
+		Vector2D one = new Vector2D(2,4);
+		Vector2D two = new Vector2D(6,8);
+		BoundingBox BBox0 = new BoundingBox(one,two);
+		Vector2D disp = new Vector2D(2,2); //displacement vector
+		
+		assertEquals(4, BBox0.displaced(disp).lower.x, epsilon);
+		assertEquals(8, BBox0.displaced(disp).upper.x, epsilon);
+		assertEquals(6, BBox0.displaced(disp).lower.y, epsilon);
+		assertEquals(10, BBox0.displaced(disp).upper.y, epsilon);
+				
+		
+		
+	}
+	
+	@Test
+	public void testGetArea() {
+		double epsilon = 0.000000000001;
+		
+
+		Vector2D one = new Vector2D(2,4);
+		Vector2D two = new Vector2D(6,8);
+		BoundingBox BBox0 = new BoundingBox(one,two);
+		
+		assertEquals(16, BBox0.getArea(), epsilon);
+				
+		
+	}
+	
+	
+	@Test
+	public void testOverlaps() {
+		//case 1: overlap from left, unequal y's
+		Vector2D one = new Vector2D(10,2);
+		Vector2D two = new Vector2D(16,8);
+		BoundingBox BBox0 = new BoundingBox(one,two);
+		
+		Vector2D three = new Vector2D(14,6);
+		Vector2D four = new Vector2D(20,12);
+		BoundingBox BBox1 = new BoundingBox(three,four);
+		
+		assertEquals(true, BBox0.overlaps(BBox1));
+		
+		//case 2: overlap from right, unequal y's
+		Vector2D five = new Vector2D(20,10);
+		Vector2D six = new Vector2D(30,20);
+		BoundingBox BBox2 = new BoundingBox(five,six);
+		
+		Vector2D seven = new Vector2D(25,0);
+		Vector2D eight = new Vector2D(40,15);
+		BoundingBox BBox3 = new BoundingBox(seven,eight);
+		
+		assertEquals(true, BBox2.overlaps(BBox3));
+		
+		//case 3: overlap from left, y's are equal
+		Vector2D nine = new Vector2D(10,2);
+		Vector2D ten = new Vector2D(17,8);
+		BoundingBox BBox4 = new BoundingBox(nine,ten);
+		
+		Vector2D eleven = new Vector2D(15,2);
+		Vector2D twelve = new Vector2D(20,8);
+		BoundingBox BBox5 = new BoundingBox(eleven,twelve);
+		
+		assertEquals(true, BBox4.overlaps(BBox5));
+		
+		//case 4: overlap from top, x's are equal
+		Vector2D thirteen = new Vector2D(10,30);
+		Vector2D fourteen = new Vector2D(20,50);
+		BoundingBox BBox6 = new BoundingBox(thirteen,fourteen);
+		
+		Vector2D fifteen = new Vector2D(10,10);
+		Vector2D sixteen = new Vector2D(20,40);
+		BoundingBox BBox7 = new BoundingBox(fifteen,sixteen);
+		
+		assertEquals(true, BBox6.overlaps(BBox7));		
+		
+	}
+	
+	@Test
+	public void testFindBBox(){
+		//implement
+	}
+
+}

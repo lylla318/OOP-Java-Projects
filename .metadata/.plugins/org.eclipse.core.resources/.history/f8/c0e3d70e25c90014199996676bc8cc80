@@ -1,0 +1,45 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+public class BoundingBoxTest {
+
+	@Test
+	public void testGetLength() {
+		double epsilon = 0.000000000001;
+		
+		//case with greater height
+		Vector2D one = new Vector2D(1,0);
+		Vector2D two = new Vector2D(2,4);
+		BoundingBox BBox0 = new BoundingBox(one,two);
+		assertEquals(BBox0.getHeight(), BBox0.getLength(), epsilon);
+		
+		//test with equal width and height
+		Vector2D three = new Vector2D(1,1);
+		Vector2D four = new Vector2D(1,1);
+		BoundingBox BBox1 = new BoundingBox(three,four);
+		assertEquals(BBox1.getWidth(), BBox1.getLength(), epsilon);
+		
+		//test with greater width
+		Vector2D five = new Vector2D(1,0);
+		Vector2D six = new Vector2D(6,2);
+		BoundingBox BBox2 = new BoundingBox(five,six);
+		assertEquals(BBox2.getWidth(), BBox2.getLength(), epsilon);
+	}
+	
+	@Test
+	public void testGetCenter() {
+		double epsilon = 0.000000000001;
+		
+		//case with greater height
+		Vector2D one = new Vector2D(1,0);
+		Vector2D two = new Vector2D(2,4);
+		BoundingBox BBox0 = new BoundingBox(one,two);
+		Vector2D three = new Vector2D(0.5,2);
+		assertEquals(three, BBox0.getCenter(), epsilon);
+		
+		
+	}
+
+}

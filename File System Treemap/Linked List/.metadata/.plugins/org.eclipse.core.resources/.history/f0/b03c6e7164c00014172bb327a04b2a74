@@ -1,0 +1,18 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+public class LinkedListTester {
+
+	@Test
+	public void testToString() {
+		LinkedList<Integer> LL = new LinkedList<Integer>();
+		assertEquals("()", LL.toString());
+		assertEquals("()", LL.toStringReverse());
+		assertEquals(0, LL.size());
+		}
+		
+	}
+
+}

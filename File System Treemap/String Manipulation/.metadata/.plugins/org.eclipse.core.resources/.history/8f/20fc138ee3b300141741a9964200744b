@@ -1,0 +1,81 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+public class A2Tester {
+
+	@Test
+	//test isPalindrome
+    public void testIsPalindrome(){
+		// assertEquals(expected value, computed value);
+		String s0 = new String(""); 
+		assertEquals(true, A2.isPalindrome(s0));
+		String s1 = new String("ab");
+		assertEquals(false, A2.isPalindrome(s1));
+		String s2 = new String("abba");
+		assertEquals(true, A2.isPalindrome(s2));
+		String s3 = new String("Madam, I'm Adam");
+		assertEquals(false, A2.isPalindrome(s3));
+		String s4 = new String ("MadamImAdam");
+		assertEquals(false, A2.isPalindrome(s4));
+		String s5 = new String("madamimadam");
+		assertEquals(true, A2.isPalindrome(s5));
+	}
+	
+
+	
+	public void areAnagrams(){
+		//assertEquals (expected value, computed value)
+		String s0 = "are";
+		String s1 = "rae";
+		assertEquals(true, A2.areAnagrams(s0, s1));
+		String s2 = new String("tom marvolo riddle");
+		String s3 = new String("i am lordvoldemort");
+		assertEquals(true, A2.areAnagrams(s2, s3));
+		String s4 = new String("tommarvoloriddle");
+		assertEquals(false, A2.areAnagrams(s4, s3));
+		String s5 = new String("hello");
+		String s6 = new String("world");
+		assertEquals(false, A2.areAnagrams(s5, s6));
+	}
+	
+	public void replaceConsonants(){
+		//assertEquals(expected value, computed value);
+		String s0 = new String("Minecraft");
+		assertEquals("^i_e__a__", A2.replaceConsonants(s0));
+		String s1 = new String("Alan Turing");
+		assertEquals("A_a_ ^u_i__", A2.replaceConsonants(s1));
+		String s2 = new String("AAA");
+		assertEquals("AAA", A2.replaceConsonants(s2));
+		String s3 = new String("aaa");
+		assertEquals("aaa", A2.replaceConsonants(s3));
+		String s4 = new String("XXX");
+		assertEquals("^^^", A2.replaceConsonants(s4));
+		String s5 = new String("xxx");
+		assertEquals("___", A2.replaceConsonants(s5));
+		String s6 = new String("X X X");
+		assertEquals("^ ^ ^", A2.replaceConsonants(s6));
+		
+		
+	}
+
+	
+	public void decompress(){
+		//assertEquals(expected value, computed value);
+		String s0 = new String("3a");
+		assertEquals("aaa", A2.decompress(s0));
+		String s1 = new String("0a");
+		assertEquals("", A2.decompress(s1));
+		String s2 = new String("3b1c5b2x0a");
+		assertEquals("bbbcbbbbbxx", A2.decompress(s2));
+		String s3 = new String("");
+		assertEquals("", A2.decompress(s3));
+		String s4 = new String("1x");
+		assertEquals("x", A2.decompress(s4));
+		
+	}
+	
+	
+
+}

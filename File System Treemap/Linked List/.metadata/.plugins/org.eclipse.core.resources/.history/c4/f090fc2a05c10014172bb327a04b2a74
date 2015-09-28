@@ -1,0 +1,303 @@
+import static org.junit.Assert.assertEquals;
+
+/* Time spent on a2:  hh hours and mm minutes.
+
+ * Name:
+ * Netid: 
+ * What I thought about this assignment:
+ *
+ *
+ */
+
+/** An instance is a doubly linked list. */
+public class LinkedList<E> {
+	private int size; // Number of values in the linked list.
+	private Node first; // first node of linked list (null if none)
+	private Node last; // last node of linked list (null if none)
+
+	/** Constructor: an empty linked list. */
+	public LinkedList() {
+
+	}
+
+	/** Return the number of values in this list. */
+	public int size() {
+		return size;
+	}
+
+	/** Return the first node of the list (null if the list is empty). */
+	public Node getFirst() {
+
+		return first;
+	}
+
+	/** Return the last node of the list (null if the list is empty). */
+	public Node getLast() {
+		return last;
+	}
+
+	/**
+	 * Return the value of node n of this list. Precondition: n is a node of
+	 * this list; it may not be null.
+	 */
+	public E valueOf(Node n) {
+		assert n != null;
+		return n.value;
+	}
+
+	/**
+	 * Return a representation of this list: its values, with adjacent ones
+	 * separated by ", ", "(" at the beginning, and ")" at the end. <br>
+	 * 
+	 * E.g. for the list containing 6 3 8 in that order, the result it
+	 * "(6, 3, 8)".
+	 */
+	public String toString() {
+		// TODO: Write this method first. Do NOT use fields size
+		String stringRep = "";
+		Node currentNode = getFirst();
+		while (currentNode != null) {
+			if (currentNode.prev != null){
+				stringRep += (", " + (valueOf(currentNode) + ""));
+				currentNode = currentNode.next();
+			} else {
+				stringRep += (valueOf(currentNode) + "");
+				currentNode = currentNode.next();
+			}
+		}
+		
+
+		return ("(" + stringRep + ")");
+	}
+
+	/**
+	 * Return a representation of this list: its values in reverse, with
+	 * adjacent ones separated by ", ", "(" at the beginning, and ")" at the
+	 * end. <br>
+	 * 
+	 * E.g. for the list containing 6 3 8 in that order, the result it
+	 * "(8, 3, 6)".
+	 */
+	public String toStringReverse() {
+		// TODO: Write this method second. Do NOT use fields size
+		String stringRep = "";
+		Node currentNode = getLast();
+		while (currentNode != null) {
+			if (currentNode.next != null){
+				stringRep += (", " + (valueOf(currentNode) + ""));
+				currentNode = currentNode.prev();
+			} else {
+				stringRep += (valueOf(currentNode) + "");
+				currentNode = currentNode.prev();
+			}
+			
+		}
+
+		return ("(" + stringRep + ")");
+	}
+
+	/**
+	 * add value v in a new node at the end of the list and return the new node.
+	 */
+	public Node append(E v) {
+		// TODO:This is the third method to write. Then you can begin testing
+		// this method AND toStringand toString reverse at the same time.
+
+		
+		if (this.size == 0) {
+			Node N1 = new Node(null, null, v);
+			this.first = N1;
+			this.last = N1;
+			size = 1;
+			return N1;
+		} else {
+			Node N1 = new Node(this.last, null, v);
+			this.last.next = N1;
+			this.last = N1;
+			size++;
+			return N1;
+		}
+
+	}
+
+	/**
+	 * add value v in a new node at the beginning of the list and return the new
+	 * node
+	 */
+	public Node prepend(E v) {
+		// TODO: This is the fourth method to write and test
+		
+		if (this.size == 0){
+			Node N0 = new Node(null, null, v);
+			this.first = N0;
+			this.last = N0;
+			size = 1;
+			return N0;
+		} else{
+			Node N0 = new Node(null, this.first, v);
+			this.first.prev = N0;
+			this.first = N0;
+			size++;
+			return N0;
+		}
+
+	}
+
+	/**
+	 * Insert value v in a new node after node n and return the new node.
+	 * Precondition: n must be a node of this list; it may not be null.
+	 */
+	public Node insertAfter(E v, Node n) {
+		// TODO: This is the fifth method to write and test
+		
+		assert n != null;
+		
+		if (size == 1){
+			Node newNode = new Node(n, null, v);
+			this.first = n;
+			this.last = newNode;
+			n.next = newNode;
+			size++;
+			return newNode;
+		} else if(n.next == null){
+			Node newNode = new Node(n, null, v);
+			n.next = newNode;
+			this.last = newNode;
+			size ++;
+			return newNode;
+		} else{
+			Node newNode = new Node(n, n.next, v);
+			n.next.prev = newNode;
+			n.next = newNode;
+			size++;
+			return newNode;
+		}
+		
+	}
+
+	/**
+	 * Insert value v in a new node before node n and return the new node.
+	 * Precondition: n must be a node of this list; it may not be null.
+	 */
+	public Node insertBefore(E v, Node n) {
+		// TODO: This is the sixth method to write and test
+		
+		assert n != null;
+		
+		if (size == 1){
+			Node newNode = new Node(null, n, v);
+			this.first = newNode;
+			this.last = n;
+			n.next = null;
+			n.prev = newNode;
+			size++;
+			return newNode;
+		} else if(n.prev == null){
+			Node newNode = new Node(null, n, v);
+			n.prev = newNode;
+			this.first = newNode;
+			size ++;
+			return newNode;
+		} else{
+			Node newNode = new Node(n.prev, n, v);
+			n.prev.next = newNode;
+			n.prev = newNode;
+			size++;
+			return newNode;
+		}
+		
+		
+	}
+
+	/**
+	 * Remove node n from this list. Precondition: n must be a node of this
+	 * list; it may not be null.
+	 */
+	public void remove(Node n) {
+		// TODO: This is the seventh method to write and test
+		
+		assert n != null;
+		
+		if (size == 1){
+			this.first = null;
+			this.last = null;
+			size--;
+		} else if (size == 2 && (n == this.getFirst())){
+			this.getLast().prev = null;
+			this.first = getLast();
+			n.next = null;
+			n.prev = null;
+			size--;
+		} else if (size == 2 && (n == this.getLast())){
+			this.getFirst().next = null;
+			this.last = getFirst();
+			n.next = null;
+			n.prev = null;
+			size--;
+		} else {
+			n.prev.next = n.next;
+			n.next.prev = n.prev;
+			n.next = null;
+			n.prev = null;
+			size--;
+		}
+		
+
+	}
+
+	/*********************/
+
+	/** An instance is a node of this list. */
+	public class Node {
+		/** Previous node on list (null if this is the first node). */
+		private Node prev;
+
+		/** The value of this element. */
+		private E value;
+
+		/** Next node on list. (null if is the last node). */
+		private Node next;
+
+		/**
+		 * Constructor: an instance with previous node p (can be null), next
+		 * node n (can be null), and value v.
+		 */
+		private Node(Node p, Node n, E v) {
+			prev = p;
+			next = n;
+			value = v;
+		}
+
+		/** Return the value of this node. */
+		public E getValue() {
+			return value;
+		}
+
+		/**
+		 * Return the node previous to this one (null if this is the first node
+		 * of the list).
+		 */
+		public Node prev() {
+			return prev;
+		}
+
+		/**
+		 * Return the next node in this list (null if this is the last node of
+		 * this list).
+		 */
+		public Node next() {
+			return next;
+		}
+	}
+
+	public static void main(String[] args) {
+		LinkedList<Integer> LL1 = new LinkedList<Integer>();
+		LL1.append(2);
+		//LL1.append(3);
+		LL1.insertBefore(1,LL1.getLast());
+		System.out.println(LL1.toString());
+		System.out.println(LL1.toStringReverse());
+		 
+
+	}
+}

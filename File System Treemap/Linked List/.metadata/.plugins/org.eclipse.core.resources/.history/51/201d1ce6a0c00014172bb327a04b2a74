@@ -1,0 +1,126 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+public class LinkedListTester {
+
+	@Test
+	public void testAppend() {
+		LinkedList<Integer> LL0 = new LinkedList<Integer>();
+		assertEquals("()", LL0.toString());
+		assertEquals("()", LL0.toStringReverse());
+		assertEquals(0, LL0.size());
+		
+		LinkedList<Integer> LL1 = new LinkedList<Integer>();
+		LL1.append(1);
+		assertEquals("(1)", LL1.toString());
+		assertEquals("(1)", LL1.toStringReverse());
+		assertEquals(1, LL1.size());
+		
+		LinkedList<Integer> LL2 = new LinkedList<Integer>();
+		LL2.append(1);
+		LL2.append(2);
+		assertEquals("(1, 2)", LL2.toString());
+		assertEquals("(2, 1)", LL2.toStringReverse());
+		assertEquals(2, LL2.size());
+		
+		LinkedList<Integer> LL3 = new LinkedList<Integer>();
+		LL3.append(1123);
+		LL3.append(243);
+		LL3.append(3234);
+		LL3.append(4654);
+		LL3.append(523);
+		assertEquals("(1123, 243, 3234, 4654, 523)", LL3.toString());
+		assertEquals("(523, 4654, 3234, 243, 1123)", LL3.toStringReverse());
+		assertEquals(5, LL3.size());
+		
+	}
+	
+	@Test
+	public void testPrepend() {
+		LinkedList<Integer> LL0 = new LinkedList<Integer>();
+		assertEquals("()", LL0.toString());
+		assertEquals("()", LL0.toStringReverse());
+		assertEquals(0, LL0.size());
+		
+		LinkedList<Integer> LL1 = new LinkedList<Integer>();
+		LL1.prepend(1);
+		assertEquals("(1)", LL1.toString());
+		assertEquals("(1)", LL1.toStringReverse());
+		assertEquals(1, LL1.size());
+		
+		LinkedList<Integer> LL2 = new LinkedList<Integer>();
+		LL2.prepend(1);
+		LL2.prepend(2);
+		assertEquals("(2, 1)", LL2.toString());
+		assertEquals("(1, 2)", LL2.toStringReverse());
+		assertEquals(2, LL2.size());
+		
+		LinkedList<Integer> LL3 = new LinkedList<Integer>();
+		LL3.prepend(1000);
+		LL3.prepend(100);
+		LL3.prepend(10);
+		LL3.prepend(10);
+		LL3.prepend(100);
+		assertEquals("(100, 10, 10, 100, 1000)", LL3.toString());
+		assertEquals("(1000, 100, 10, 10, 100)", LL3.toStringReverse());
+		assertEquals(5, LL3.size());
+		
+	}
+	
+	@Test
+	public void testInsertAfter() {
+		LinkedList<Integer> LL0 = new LinkedList<Integer>();
+		LL0.append(1);
+		LL0.insertAfter(2, LL0.getFirst());
+		assertEquals("(1, 2)", LL0.toString());
+		assertEquals("(2, 1)", LL0.toStringReverse());
+		assertEquals(2, LL0.size());
+		
+		LinkedList<Integer> LL1 = new LinkedList<Integer>();
+		LL1.append(1);
+		LL1.append(3);
+		LL1.insertAfter(2, LL1.getFirst());
+		assertEquals("(1, 2, 3)", LL1.toString());
+		assertEquals("(3, 2, 1)", LL1.toStringReverse());
+		assertEquals(3, LL1.size());
+		
+		LinkedList<Integer> LL2 = new LinkedList<Integer>();
+		LL2.append(1);
+		LL2.append(2);
+		LL2.insertAfter(3, LL2.getLast());
+		assertEquals("(1, 2, 3)", LL2.toString());
+		assertEquals("(3, 2, 1)", LL2.toStringReverse());
+		assertEquals(3, LL2.size());
+		
+	}
+	
+	@Test
+	public void testRemove() {
+		LinkedList<Integer> LL0 = new LinkedList<Integer>();
+		LL0.append(1);
+		LL0.remove(LL0.getFirst());
+		assertEquals("()", LL0.toString());
+		assertEquals("()", LL0.toStringReverse());
+		assertEquals(0, LL0.size());
+		
+		LinkedList<Integer> LL1 = new LinkedList<Integer>();
+		LL1.append(1);
+		LL1.append(2);
+		LL1.remove(LL1.getFirst());
+		assertEquals("(2)", LL1.toString());
+		assertEquals("(2)", LL1.toStringReverse());
+		assertEquals(1, LL1.size());
+		
+		LinkedList<Integer> LL2 = new LinkedList<Integer>();
+		LL2.append(1);
+		LL2.append(2);
+		LL2.remove(LL2.getLast());
+		assertEquals("(1)", LL2.toString());
+		assertEquals("(1)", LL2.toStringReverse());
+		assertEquals(3, LL2.size());
+		
+	}
+
+}

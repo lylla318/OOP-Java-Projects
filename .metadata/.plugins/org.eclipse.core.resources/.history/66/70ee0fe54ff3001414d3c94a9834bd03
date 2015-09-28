@@ -1,0 +1,102 @@
+public class MyManager extends Manager {
+	
+	
+
+	public MyManager() {
+		// TODO Auto-generated constructor stub
+	}
+
+	boolean flag = true; //true if pre-processing not done
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		flag = true;
+
+		Set<Parcel> parcels = this.getParcels();
+		ArrayList<Truck> tr = this.getTrucks();
+		ArrayList<Truck> trucks = tr;
+		
+		//add empty ArrayList of parcels to user data of each truck
+		for (int i = 0; i < trucks.size(); i++){
+			LinkedList<Parcel> parcList = new LinkedList<Parcel> ();
+			trucks.get(i).setUserData(parcList);
+		}
+		
+		//add each parcel to ArrayList of a random truck
+		for(Parcel p : parcels){
+			Random random = new Random(); 
+			int r = random.nextInt(trucks.size());
+			((LinkedList<Parcel>) trucks.get(r).getUserData()).add(p); 
+		}
+
+		flag = false;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void truckNotification(Truck t, Notification message) {
+		// TODO Auto-generated method stub
+
+		/**if (message != Notification.WAITING){
+			return;
+		}*/
+		
+		//preprocessing not done
+		if (flag == true){
+			return;
+		}
+		
+		
+		Set<Parcel> parcels = this.getParcels();
+		LinkedList<Parcel> user = ((LinkedList<Parcel>) t.getUserData());
+
+		//if there is at least one un-delivered parcel in the game
+		if (parcels.isEmpty() == false){
+			
+			//t has load
+			if (t.getLoad() != null){
+				if (t.getLocation() == t.getLoad().destination){
+					t.dropoffLoad();
+				}
+				else {
+					t.setTravelPath(Paths.dijkstra(t.getLocation(), 
+							t.getLoad().destination));
+				}
+			}
+			//t has no load
+			else {
+				try {
+					//t is on top of parcel it needs, pick it up
+					if (t.getLocation() == user.getFirst().getLocation()){
+						t.pickupLoad(user.getFirst());
+						user.remove();
+					}
+					//t needs to find next parcel to pick up
+					else {
+						t.setTravelPath(Paths.dijkstra(t.getLocation(), 
+								user.getFirst().getLocation()));
+					}
+				}
+				//truck has delivered all of its parcels, route home
+				catch (NoSuchElementException e){
+					t.setTravelPath(Paths.dijkstra(t.getLocation(), 
+							this.getBoard().getTruckDepot()));
+				}
+			}
+		} 
+		else {
+			t.setTravelPath(Paths.dijkstra(t.getLocation(), 
+					this.getBoard().getTruckDepot()));
+		}
+		
+	}
+}
+
+
+
+Node [] no = (Node[]) t.getLocation().getNeighbors().keySet().toArray();
+					t.setTravelPath(Paths.dijkstra(t.getLocation(), no[0]));
+
+

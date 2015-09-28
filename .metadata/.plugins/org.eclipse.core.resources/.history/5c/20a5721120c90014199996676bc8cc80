@@ -1,0 +1,15 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+public class BoundingBoxTest {
+
+	@Test
+	public void testGetLength() {
+		Vector2D one = new Vector2D(1,2);
+		Vector2D two = new Vector2D(3,4);
+		BoundingBox BBox0 = new BoundingBox(one,two);
+	}
+
+}

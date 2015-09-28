@@ -1,0 +1,17 @@
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+
+public class BoundingBoxTest {
+
+	@Test
+	public void testGetLength() {
+		double epsilon = 0.000000000001;
+		Vector2D one = new Vector2D(1,0);
+		Vector2D two = new Vector2D(2,4);
+		BoundingBox BBox0 = new BoundingBox(one,two);
+		assertEquals(BBox0.getHeight(), BBox0.getLength(), epsilon);
+	}
+
+}
